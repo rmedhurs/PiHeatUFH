@@ -186,7 +186,7 @@ def gpio_all_low():
 
 
 # Set of REST methonds to read sensor values
-@app.route("/api/v1/sensor/status/", methods=['GET'])
+@app.route("/api/v1/sensors/temperature/status/", methods=['GET'])
 #@crossdomain(origin='*')
 def sensor_status():
     data_list = []
@@ -194,7 +194,7 @@ def sensor_status():
     # scommand = input("Press any key to continue ")
     # sensors = TemperatureSensors.get_available_sensors()
     for s in TemperatureSensors.get_available_sensors():
-        data_list.append(s.get_temperature())
+        data_list.append(temp_sensor_status(s))
        # print(s.id + " " + s.type_name + " " + str(temp) + " " + str(round(temp, 1)) + "C")
 
     #for pin in VALID_BCM_PIN_NUMBERS:
@@ -203,6 +203,18 @@ def sensor_status():
     data = {'data': data_list}
     return jsonify(data)
 
+def temp_sensor_status (temp_sensor):
+    data = {'sensor_id': temp_sensor.id,
+                'sensor_name': temp_sensor.get_name(),  
+                'sensor_type': temp_sensor.type_name,
+                'temperature': temp_sensor.get_temperature(),
+                'status': 'SUCCESS',
+                'error': None}
+    #else:
+    #    data = {'status': 'ERROR',
+    #            'error': 'Invalid pin number.'}
+
+    return data
 
 
 if __name__ == "__main__":

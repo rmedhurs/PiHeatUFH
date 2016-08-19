@@ -6,7 +6,7 @@
 
 from os import path, listdir, system
 from time import sleep
-
+from my_database import db_map
 
 class W1ThermSensorError(Exception):
     """Exception base-class for W1ThermSensor errors"""
@@ -240,3 +240,10 @@ class W1ThermSensor(object):
         """
         sensor_value = self.raw_sensor_value
         return [self._get_unit_factor(unit)(sensor_value) for unit in units]
+
+    def get_name(self):
+        """
+           Returns the friendly name of this sensor from the mapping database
+        """
+        return db_map(self.id)
+
