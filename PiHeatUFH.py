@@ -3,7 +3,7 @@
 import RPi.GPIO as GPIO
 from flask import Flask, jsonify, request
 
-from sensors import W1ThermSensor
+from sensors import *
 
 #from decorators import crossdomain
 
@@ -204,18 +204,34 @@ def sensor_status():
     return jsonify(data)
 
 def temp_sensor_status (temp_sensor):
-    data = {'sensor_id': temp_sensor.id,
+    try:
+        data = {'sensor_id': temp_sensor.id,
                 'sensor_name': temp_sensor.get_name(),  
                 'sensor_type': temp_sensor.type_name,
-                'temperature': temp_sensor.get_temperature(),
+                'temperature': str(round(temp_sensor.get_temperature(),1))+"C",
                 'status': 'SUCCESS',
                 'error': None}
-    #else:
-    #    data = {'status': 'ERROR',
-    #            'error': 'Invalid pin number.'}
-
-    return data
-
+        return data
+    except UnsupportedUnitError:
+        raise UnsupportedUnitError()
+    except NoSensorFoundError:
+        error="banana"
+        data = {'sensor_id': error,
+                'sensor_name': error,
+                'sensor_type': error,
+                'temperature': error,
+                'status': 'SUCCESS',
+                'error': None}
+        return data
+    except SensorNotReadyError:
+        error="apple"
+        data = {'sensor_id': temp_sensor.id,
+                'sensor_name': temp_sensor.get_name(),
+                'sensor_type': temp_sensor.type_name,
+                'temperature': None,
+                'status': 'FAILURE',
+                'error': 'SensorNotReady'}
+        return data
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)
