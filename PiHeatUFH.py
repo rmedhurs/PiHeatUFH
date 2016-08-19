@@ -1,11 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from flask import Flask, jsonify, request
-from Sensors.sensors import W1ThermSensor
-# from flask.ext.login import LoginManager, UserMixin, login_required
-# from itsdangerous import URLSafeTimedSerializer
-
 import RPi.GPIO as GPIO
+from flask import Flask, jsonify, request
+
+from sensors import W1ThermSensor
+
 #from decorators import crossdomain
 
 app = Flask(__name__)
