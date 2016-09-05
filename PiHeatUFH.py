@@ -72,7 +72,7 @@ try:
 #             'error': 'Auth requerided'}
 #     return jsonify(data)
 
-    VALID_BCM_PIN_NUMBERS = [15, 17, 18, 27, 22]
+    VALID_BCM_PIN_NUMBERS = [15, 7, 8, 25, 24, 23]
     VALID_HIGH_VALUES = [1, '1', 'HIGH']
     VALID_LOW_VALUES = [0, '0', 'LOW']
     PIN_NAMES = {'15': 'IN1',
