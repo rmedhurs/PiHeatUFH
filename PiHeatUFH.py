@@ -237,5 +237,5 @@ try:
         app.run(host='0.0.0.0', port=80, debug=True)
 
 except KeyboardInterrupt:
-    print "Exiting"
+    print ("Exiting")
     GPIO.cleanup()
