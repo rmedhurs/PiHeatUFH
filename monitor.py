@@ -80,17 +80,17 @@ def get_temp(devicefile):
     # is the status is ok, get the temperature from line 2
         if status=="YES":
             tempstr= lines[1][-6:-1]
-            if tempstr=="85000":
-                print ("Error 85000")
+            #if tempstr=="85000":
+                #print ("Error 85000")
                 #return 
             tempvalue=float(tempstr)/1000
             #print ("temp is "+str(tempvalue))
             return tempvalue
         else:
-            print ("There was an error.")
+            #print ("There was an error.")
             return -1
     except Exception as e:
-        print ("Exception "+e)
+        #print ("Exception "+e)
         return -1
 
 
@@ -121,10 +121,10 @@ while True:
             #print (sensor_name)                          ## the 1-wire temp sensors are unreliable so we take 5 readings, sort them than pick the middle one. That should eliminate high values and low ones
             sensor_readings[i]=get_temp(sensor_name)
         sensor_readings = sorted (sensor_readings)     
-        print (sensor_readings,end=" ")
+        #print (sensor_readings,end=" ")
         sensor_temperature_list[index]=sensor_readings[2]
     
-    print (sensor_temperature_list)    
+    #print (sensor_temperature_list)    
     # get the temperature from the device file
     #flow_temperature = get_temp(flow_sensor)    
     #return_temperature = get_temp(return_sensor)
