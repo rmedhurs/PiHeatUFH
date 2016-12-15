@@ -100,7 +100,7 @@ try:
                     'error': None}
         else:
             data = {'status': 'ERROR',
-                    'error': 'Invalid pin number.'}
+                    'error': 'Invalid pin number %d' %pin_number}
 
         return data
 
