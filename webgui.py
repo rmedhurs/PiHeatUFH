@@ -149,17 +149,14 @@ def show_stats(option):
         option = str(24)
 
     curs.execute("SELECT timestamp,max(temp1) FROM temps WHERE timestamp>datetime('now','-%s hour') AND timestamp<=datetime('now')" % option)
-#    curs.execute("SELECT timestamp,max(temp1) FROM temps WHERE timestamp>datetime('2013-09-19 21:30:02','-%s hour') AND timestamp<=datetime('2013-09-19 21:31:02')" % option)
     rowmax=curs.fetchone()
     rowstrmax="{0}&nbsp&nbsp&nbsp{1}C".format(str(rowmax[0]),str(rowmax[1]))
 
     curs.execute("SELECT timestamp,min(temp1) FROM temps WHERE timestamp>datetime('now','-%s hour') AND timestamp<=datetime('now')" % option)
-#    curs.execute("SELECT timestamp,min(temp1) FROM temps WHERE timestamp>datetime('2013-09-19 21:30:02','-%s hour') AND timestamp<=datetime('2013-09-19 21:31:02')" % option)
     rowmin=curs.fetchone()
     rowstrmin="{0}&nbsp&nbsp&nbsp{1}C".format(str(rowmin[0]),str(rowmin[1]))
 
     curs.execute("SELECT avg(temp1) FROM temps WHERE timestamp>datetime('now','-%s hour') AND timestamp<=datetime('now')" % option)
-#    curs.execute("SELECT avg(temp) FROM temps WHERE timestamp>datetime('2013-09-19 21:30:02','-%s hour') AND timestamp<=datetime('2013-09-19 21:31:02')" % option)
     rowavg=curs.fetchone()
 
 
@@ -207,16 +204,20 @@ def print_time_selector(option):
         else:
             print "<option value=\"1\">the last hour</option>"
 
+        if option == "2":
+            print "<option value=\"2\" selected=\"selected\">the last 2 hours</option>"
+        else:
+            print "<option value=\"2\">the last 2 hours</option>"
+
+        if option == "4":
+            print "<option value=\"4\" selected=\"selected\">the last 4 hours</option>"
+        else:
+            print "<option value=\"4\">the last 4 hours</option>"
+
         if option == "6":
             print "<option value=\"6\" selected=\"selected\">the last 6 hours</option>"
         else:
             print "<option value=\"6\">the last 6 hours</option>"
-
-        if option == "12":
-            print "<option value=\"12\" selected=\"selected\">the last 12 hours</option>"
-        else:
-            print "<option value=\"12\">the last 12 hours</option>"
-
         if option == "24":
             print "<option value=\"24\" selected=\"selected\">the last 24 hours</option>"
         else:
